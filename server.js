@@ -10,6 +10,7 @@ const api = require('./routes/auth.routes');
 // MongoDB conection
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.users, {
+    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -43,12 +44,12 @@ const server = app.listen(port, () => {
 });
 
 // Express error handling
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     setImmediate(() => {
         next(new Error('Something went wrong'));
     });
 });
-
+*/
 app.use(function (err, req, res, next) {
     console.error(err.message);
     if (!err.statusCode) err.statusCode = 500;
