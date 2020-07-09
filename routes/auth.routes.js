@@ -344,7 +344,7 @@ router.route('/company/:id/coupons').get((req, res) => {
 })
 
 // Get coupon
-router.route('/coupon').get(authorize, (req, res, next) => {
+router.route('/coupon').get((req, res, next) => {
     couponSchema.findById(req.query.id, (error, data) => {
         if (error) {
             console.log(error);
