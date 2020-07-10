@@ -343,8 +343,23 @@ router.route('/company/:id/coupons').get((req, res) => {
     })
 })
 
+// Update Vote / redeemed public
+router.route('/update/coupon/public').put((req, res, next) => {
+    couponSchema.findByIdAndUpdate(req.query.id, {
+        $set: req.body
+    }, (error, data) => {
+        if (error) {
+            console.log(error);
+            return next(error);
+        } else {
+            res.json(data)
+            console.log('Coupon successfully updated!')
+        }
+    })
+});
+
 // Get coupon
-router.route('/coupon').get((req, res, next) => {
+router.route('/coupon').get(authorize, (req, res, next) => {
     couponSchema.findById(req.query.id, (error, data) => {
         if (error) {
             console.log(error);
