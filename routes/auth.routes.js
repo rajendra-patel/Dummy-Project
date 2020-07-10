@@ -57,7 +57,7 @@ router.post("/signin", (req, res, next) => {
 });
 
 // Get All Users
-router.route('/users').get((req, res) => {
+router.route('/users').get(authorize, (req, res) => {
     userSchema.find((error, response) => {
         if (error) {
             return next(error)
@@ -319,7 +319,7 @@ router.route("/create-coupon").post( authorize, upload.single('image'), (req, re
 });
 
 // Get All Coupons
-router.route('/coupons').get((req, res) => {
+router.route('/coupons').get(authorize, (req, res) => {
     couponSchema.find((error, response) => {
         if (error) {
             return next(error)
@@ -330,7 +330,7 @@ router.route('/coupons').get((req, res) => {
 })
 
 // Get company Coupons
-router.route('/company/:id/coupons').get((req, res) => {
+router.route('/company/:id/coupons').get(authorize, (req, res) => {
     couponSchema.find({ company_id : req.params.id }, (error, data) => {
         if (error) {
             console.log(error);
@@ -359,7 +359,7 @@ router.route('/update/coupon/public').put((req, res, next) => {
 });
 
 // Get coupon
-router.route('/coupon').get(authorize, (req, res, next) => {
+router.route('/coupon').get((req, res, next) => {
     couponSchema.findById(req.query.id, (error, data) => {
         if (error) {
             console.log(error);
